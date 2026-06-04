@@ -1,0 +1,113 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+}
+.inputRow {
+  display: flex;
+  align-items: center;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.inputRow:focus-within { border-color: #111827; }
+.icon {
+  width: 18px;
+  height: 18px;
+  margin: 0 10px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+.input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #111827;
+  background: transparent;
+}
+.input::-webkit-search-cancel-button { display: none; }
+.clear {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0 8px;
+  font-size: 13px;
+}
+.clear:hover { color: #111827; }
+.btn {
+  background: #111827;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover { background: #374151; }
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  z-index: 100;
+  overflow: hidden;
+}
+.section { padding: 8px 0; border-bottom: 1px solid #f3f4f6; }
+.section:last-child { border-bottom: none; }
+.sectionLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 14px 6px;
+}
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 14px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  text-align: left;
+}
+.suggestion:hover { background: #f9fafb; }
+.productRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 14px;
+  text-decoration: none;
+  color: inherit;
+}
+.productRow:hover { background: #f9fafb; }
+.thumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.productTitle { font-size: 12px; font-weight: 600; color: #111827; }
+.productPrice { font-size: 11px; color: #6b7280; }

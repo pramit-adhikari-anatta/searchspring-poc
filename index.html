@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Searchspring POC</title>
+    <!--
+      SHOPIFY INTEGRATION PATTERN:
+      In a Shopify theme section, replace the script below with a Liquid snippet:
+
+        <script>
+          window.__SS_CONFIG__ = {
+            siteId: {{ shop.metafields.searchspring.site_id | json }},
+            currency: {{ shop.currency | json }},
+            moneyFormat: {{ shop.money_format | json }}
+          };
+        </script>
+        {{ 'searchspring-poc.js' | asset_url | script_tag }}
+        {{ 'searchspring-poc.css' | asset_url | stylesheet_tag }}
+        <div id="searchspring-root"></div>
+    -->
+  </head>
+  <body>
+    <div id="searchspring-root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
