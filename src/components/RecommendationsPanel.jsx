@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useRecommendations } from '../hooks/useRecommendations';
-import ProductCard from './ProductCard';
+import { SimpleProductCard } from '../storefront/index';
 import styles from './RecommendationsPanel.module.css';
 
 const PROFILES = ['product-page', 'cross-sell', 'upsell', 'similar'];
@@ -113,7 +113,7 @@ export default function RecommendationsPanel() {
 					) : (
 						<div className={styles.grid}>
 							{products.map((p) => (
-								<ProductCard key={p.id} product={p} />
+								<SimpleProductCard key={p.id} product={p} />
 							))}
 						</div>
 					)}

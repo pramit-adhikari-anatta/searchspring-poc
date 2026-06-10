@@ -9,31 +9,36 @@
   margin-bottom: 16px;
 }
 .title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
-  color: #111827;
+  color: #3b2f23;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
 }
 .clearAll {
   background: none;
   border: none;
-  font-size: 12px;
-  color: #6b7280;
+  font-size: 11px;
+  color: #d53e27;
   cursor: pointer;
   padding: 0;
+  font-family: inherit;
   text-decoration: underline;
 }
-.clearAll:hover { color: #111827; }
+.clearAll:hover { color: #b83320; }
 .group {
   margin-bottom: 20px;
+  border-bottom: 1px solid #e8e0d8;
+  padding-bottom: 16px;
 }
+.group:last-child { border-bottom: none; }
 .groupLabel {
-  font-size: 12px;
-  font-weight: 600;
-  color: #374151;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5c4b3b;
   margin-bottom: 8px;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 .values {
   display: flex;
@@ -46,18 +51,18 @@
   gap: 8px;
   cursor: pointer;
   font-size: 12px;
-  color: #374151;
+  color: #5c4b3b;
 }
-.value:hover .valueLabel { color: #111827; }
+.value:hover .valueLabel { color: #d53e27; }
 .checkbox {
   width: 14px;
   height: 14px;
   flex-shrink: 0;
-  accent-color: #111827;
+  accent-color: #d53e27;
   cursor: pointer;
 }
 .valueLabel { flex: 1; }
 .count {
   font-size: 11px;
-  color: #9ca3af;
+  color: #9b8f86;
 }

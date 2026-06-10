@@ -23,11 +23,11 @@ export default function ProductCard({ product }) {
 				)}
 			</div>
 			<div className={styles.body}>
-				{productType && <div className={styles.type}>{productType}</div>}
 				<div className={styles.title}>{title}</div>
 				{description && <div className={styles.desc}>{description}</div>}
 				<div className={styles.pricing}>
-					<span className={styles.price}>{fmt(price)}</span>
+					<span className={styles.price}>{fmt(price)}</span> - 
+					<span className={styles.price}>{fmt(compareAtPrice)}</span>
 					{hasDiscount && <span className={styles.compare}>{fmt(compareAtPrice)}</span>}
 				</div>
 				{rating > 0 && (

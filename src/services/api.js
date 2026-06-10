@@ -48,14 +48,20 @@ export const search = async ({
 };
 
 // ── Autocomplete ───────────────────────────────────────────────────────────────
-export const autocomplete = async ({ q = '', perPage = 6 }) => {
+export const autocomplete = async ({
+	q = '',
+	perPage = 6,
+	includeProducts = true,
+	includeSuggestions = true,
+}) => {
 	const { siteId } = getConfig();
 	const params = buildParams({
 		siteId,
 		q,
-		resultsFormat: 'native',
-		resultsPerPage: perPage,
-		suggestions: 'true',
+		...(includeProducts && perPage > 0
+			? { resultsFormat: 'native', resultsPerPage: perPage }
+			: {}),
+		...(includeSuggestions ? { suggestions: 'true' } : {}),
 		'bgfilter.mfield_denver_inventory_total_product_quantity.low': '1',
 	});
 	return get(`${baseUrl('/api/search/autocomplete.json')}?${params}`);

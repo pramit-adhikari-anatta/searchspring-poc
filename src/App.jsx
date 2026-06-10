@@ -1,18 +1,20 @@
 import { useState } from 'react';
 
 import Facets from './components/Facets';
-import Pagination from './components/Pagination';
-import ProductCard from './components/ProductCard';
 import RecommendationsPanel from './components/RecommendationsPanel';
 import SearchBar from './components/SearchBar';
 import SimilarPrintsPanel from './components/SimilarPrintsPanel';
+import SuggestedSearchPanel from './components/SuggestedSearchPanel';
 import TrendingSearches from './components/TrendingSearches';
 import { useRecommendations } from './hooks/useRecommendations';
 import { useSearch } from './hooks/useSearch';
+// ── Storefront components ─────────────────────────────────────────────────────
+import { DidYouMean, Pagination, SimpleProductCard } from './storefront/index';
 import styles from './App.module.css';
 
 const TABS = [
 	{ id: 'search', label: 'Search & Browse', icon: '🔍' },
+	{ id: 'suggested', label: 'Suggested Search', icon: '💡' },
 	{ id: 'recommendations', label: 'Recommendations', icon: '✦' },
 	{ id: 'similar-prints', label: 'Similar Prints', icon: '🎨' },
 ];
@@ -27,7 +29,7 @@ function RecsStrip({ productIds }) {
 			{status === 'loading' && <div className={styles.spinner} />}
 			{status === 'success' && products.length > 0 && (
 				<div className={styles.recsGrid}>
-					{products.map((p) => <ProductCard key={p.id} product={p} />)}
+					{products.map((p) => <SimpleProductCard key={p.id} product={p} />)}
 				</div>
 			)}
 		</section>
@@ -35,7 +37,7 @@ function RecsStrip({ productIds }) {
 }
 
 // ── Search tab — receives pre-lifted search state from App ────────────────────
-function SearchTab({ search }) {
+function SearchTab({ search, onSearch }) {
 	const { result, status, error, page, selectedFacets, sortOptions, sortLabel,
 		setSort, setPage, toggleFacet, clearFacets } = search;
 	const [selectedIds, setSelectedIds] = useState([]);
@@ -65,12 +67,21 @@ function SearchTab({ search }) {
 					<div className={styles.toolbar}>
 						<span className={styles.resultCount}>
 							{result.pagination.totalResults.toLocaleString()} results
-							{result.didYouMean && <> — showing results for <em>{result.didYouMean}</em></>}
 						</span>
 						<select className={styles.sortSelect} value={sortLabel} onChange={(e) => setSort(e.target.value)}>
 							{sortOptions.map((o) => <option key={o} value={o}>{o}</option>)}
 						</select>
 					</div>
+
+					{/* DidYouMean — ported from main storefront */}
+					{result.didYouMean && (
+						<DidYouMean
+							didYouMean={result.didYouMean}
+							originalQuery={search?.q}
+							onSuggestionClick={onSearch}
+						/>
+					)}
+
 					<div className={styles.layout}>
 						{result.facets?.length > 0 && (
 							<Facets facets={result.facets} selectedFacets={selectedFacets}
@@ -80,18 +91,24 @@ function SearchTab({ search }) {
 							{status === 'loading' && (
 								<div className={styles.loadingOverlay}><div className={styles.spinner} /></div>
 							)}
+							{/* SimpleProductCard — ported from main storefront */}
 							<div className={styles.grid}>
 								{result.results.map((p) => (
 									<div
-										className={`${styles.cardWrap} ${selectedIds.includes(p.id) ? styles.selected : ''}`}
+										className={`${selectedIds.includes(p.id) ? 'ring-2 ring-primary rounded-md' : ''}`}
 										key={p.id}
 										title="Click to load recommendations"
 										onClick={() => toggleId(p.id)}>
-										<ProductCard product={p} />
+										<SimpleProductCard product={p} />
 									</div>
 								))}
 							</div>
-							<Pagination currentPage={page} totalPages={result.pagination.totalPages} onPageChange={setPage} />
+							{/* Pagination — ported from main storefront */}
+							<Pagination
+								page={page}
+								numberOfPages={result.pagination.totalPages}
+								onChange={setPage}
+							/>
 						</div>
 					</div>
 					<RecsStrip productIds={selectedIds} />
@@ -117,11 +134,13 @@ export default function App() {
 	const handleBrowse = () => {
 		setActiveTab('search');
 		search.setCollection(collectionInput);
-		// setCollection triggers the useEffect in useSearch via its own dep tracking
 	};
 
 	return (
 		<div className={styles.app}>
+			<div className={styles.promoBanner}>
+				Searchspring POC — Powered by Shinesty Storefront Components
+			</div>
 			<header className={styles.header}>
 				<div className={styles.headerTop}>
 					<span className={styles.logo}>Searchspring POC</span>
@@ -158,7 +177,8 @@ export default function App() {
 			</nav>
 
 			<main className={styles.content}>
-				{activeTab === 'search' && <SearchTab search={search} />}
+				{activeTab === 'search' && <SearchTab onSearch={handleSearch} search={search} />}
+				{activeTab === 'suggested' && <SuggestedSearchPanel onSearch={handleSearch} />}
 				{activeTab === 'recommendations' && <RecommendationsPanel />}
 				{activeTab === 'similar-prints' && <SimilarPrintsPanel />}
 			</main>

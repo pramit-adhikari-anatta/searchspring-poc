@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { useSimilarPrints } from '../hooks/useSimilarPrints';
-import ProductCard from './ProductCard';
+import { SimpleProductCard } from '../storefront/index';
 import styles from './SimilarPrintsPanel.module.css';
 
 // Product types mapped from storefront services/searchspring/similarPrints.js collections map
@@ -162,7 +162,7 @@ export default function SimilarPrintsPanel() {
 					) : (
 						<div className={styles.grid}>
 							{result.results.map((p) => (
-								<ProductCard key={p.id} product={p} />
+								<SimpleProductCard key={p.id} product={p} />
 							))}
 						</div>
 					)}
